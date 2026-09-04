@@ -4,6 +4,10 @@
 # Name: Edmund Liu
 # Date: Sept 4, 2026
 
-user_temperature = float(input("enter a temperature in fahrenheit: "))
-fahrenheit_to_celsius= (user_temperature - 32) *5/9
+user_temperature = input("enter a temperature in fahrenheit: ")
+temperature_float = float(user_temperature)
+
+fahrenheit_to_celsius = (temperature_float - 32) * 5/9
+
+print("you entered:", user_temperature, "fahrenheit")
 print("the temperature that you entered in celsius is:", fahrenheit_to_celsius)
