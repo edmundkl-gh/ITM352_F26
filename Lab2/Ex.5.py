@@ -4,8 +4,8 @@
 # Name: Edmund Liu
 # Date: Sept 4, 2026
 
-user_input = input("please type a sentence of your choosing: ")
-number_of_characters = len(user_input)
+user_string = input("please enter a string: ")
+number_of_characters = len(user_string)
 
-print("you entered:", user_input)
-print("the number of characters in your sentence is:", number_of_characters)
+print("you entered:", user_string)
+print("the length of the string you entered is:", number_of_characters)
