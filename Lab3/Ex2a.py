@@ -1,5 +1,7 @@
-***
+"""
+Create a function called midpoint
 
-create a function-call it midpoint that 
+"""
 
-***
+def midpoint(a, b): 
+return (a + b) / 2 
