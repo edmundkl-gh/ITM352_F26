@@ -1,0 +1,1 @@
+url = input("Enter a URL: ") # Remove the protocol (e.g., "https://") and any trailing path host = url.split("//")[-1].split("/")[0] parts = host.split(".") tld = parts[-1] domain = parts[-2] print("Domain:", domain) print("TLD:", tld) 
