@@ -6,3 +6,4 @@ while evens[-1] < 50:
     evens.append(num)
 
 print(evens)
+ 
