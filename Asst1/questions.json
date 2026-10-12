@@ -1,0 +1,32 @@
+{
+    "Which line assigns the value 5 to a variable named score?": [
+        "score = 5",
+        "5 = score",
+        "score == 5",
+        "variable score = 5"
+    ],
+    "What value does numbers[1] return from numbers = [10, 20, 30]?": [
+        "20",
+        "10",
+        "30",
+        "1"
+    ],
+    "How do you get the value stored under the key 'name' in a dictionary called student?": [
+        "student['name']",
+        "student.name",
+        "student(name)",
+        "student[ name ]"
+    ],
+    "What does this code print? if 3 > 5: print('yes') else: print('no')": [
+        "no",
+        "yes",
+        "3",
+        "It prints both yes and no"
+    ],
+    "Which keyword starts a while loop in Python?": [
+        "while",
+        "repeat",
+        "loop",
+        "during"
+    ]
+}

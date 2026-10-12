@@ -1,0 +1,7 @@
+{
+    "Which line assigns the value 5 to a variable named score?": "In Python, assignment uses one equals sign.",
+    "What value does numbers[1] return from numbers = [10, 20, 30]?": "List positions start counting at 0.",
+    "How do you get the value stored under the key 'name' in a dictionary called student?": "Use the key in square brackets after the dictionary name.",
+    "What does this code print? if 3 > 5: print('yes') else: print('no')": "The if block runs only when its condition is true.",
+    "Which keyword starts a while loop in Python?": "The loop keyword is also in the question."
+}
