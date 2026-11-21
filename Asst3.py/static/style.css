@@ -1,0 +1,14 @@
+body { font-family: system-ui, sans-serif; background: #f4f6f8; margin: 0; color: #222; }
+main { max-width: 600px; margin: 2rem auto; padding: 1.5rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+input { width: 100%; padding: .6rem; margin: .4rem 0 1rem; font-size: 1rem; box-sizing: border-box; }
+button { padding: .7rem 1rem; font-size: 1rem; border: 0; border-radius: 8px; background: #2563eb; color: #fff; cursor: pointer; }
+button:hover:not(:disabled) { background: #1d4ed8; }
+button:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+#options { display: grid; gap: .6rem; margin: 1rem 0; }
+.option { background: #e5e7eb; color: #222; text-align: left; }
+.option:hover:not(:disabled) { background: #d1d5db; }
+.option.correct { background: #16a34a; color: #fff; }
+.option.wrong { background: #dc2626; color: #fff; }
+.good { color: #166534; } .bad { color: #991b1b; }
+#error { background: #fee2e2; color: #991b1b; padding: .7rem; border-radius: 8px; }
+@media (max-width: 480px) { main { margin: 0; border-radius: 0; } }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+    <form method="POST">
+        <h1>Question {{ question_number + 1 }}: {{ question }}</h1>
+
+        {% if error %}
+            <p role="alert" style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        {% for option in options %}
+            <input type="radio" name="answer" id="opt{{ loop.index }}" value="{{ option }}">
+            <label for="opt{{ loop.index }}">{{ option }}</label><br>
+        {% endfor %}
+        <button type="submit">Submit Answer</button>
+    </form>
+</body>
+</html>

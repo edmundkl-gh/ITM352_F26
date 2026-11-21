@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Feedback</title>
+</head>
+<body>
+    {% if feedback.correct %}
+        <h1 style="color: green;">Correct!</h1>
+    {% else %}
+        <h1 style="color: red;">Not quite.</h1>
+        <p>You answered: {{ feedback.your_answer }}</p>
+        <p>The correct answer was: {{ feedback.correct_answer }}</p>
+    {% endif %}
+    <p>Current score: {{ score }}</p>
+
+    {% if finished %}
+        <a href="{{ url_for('result') }}">See Results</a>
+    {% else %}
+        <a href="{{ url_for('quiz') }}">Next Question</a>
+    {% endif %}
+</body>
+</html>

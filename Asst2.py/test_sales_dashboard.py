@@ -1,17 +1,18 @@
-"""
-test_sales_dashboard_basic.py - Tests for sales_dashboard_basic.py
 
-Run with:   python test_sales_dashboard_basic.py
+#test_sales_dashboard_basic.py - Tests for sales_dashboard_basic.py
 
-HOW IT WORKS
-* check(description, condition) prints PASS or FAIL and counts the results.
-* The tests use a small table with 5 rows, so the right answers are easy to
-  work out by hand. The numbers are listed in build_sample_data().
-* The dashboard asks the user questions with input(). In the tests we swap
-  input() for fake_input(), which gives answers from a prepared list.
-  This lets the tests "type" for us.
-* We also catch what the dashboard prints, so we can check its messages.
-"""
+#Run with:   python test_sales_dashboard_basic.py
+
+#check(description, condition) prints PASS or FAIL and counts the results.
+#The tests use a small table with 5 rows, so the right answers are easy to
+#work out by hand. The numbers are listed in build_sample_data().
+#The dashboard asks the user questions with input(). In the tests we swap
+#input() for fake_input(), which gives answers from a prepared list.
+#This lets the tests "type" for us.
+#Catch what the dashboard prints, so we can check its messages.
+
+# Name: Edmund Liu
+# Date: Nov. 8, 2026
 
 import io
 import os
@@ -19,16 +20,12 @@ import sys
 
 import pandas as pd
 
-import sales_dashboard_basic as sd
+import sales_dashboard as sd
 
 TEMP_FILE = "test_temp_sales.csv"
 passed_count = 0
 failed_count = 0
 
-
-# ---------------------------------------------------------------------------
-# Test helpers
-# ---------------------------------------------------------------------------
 def check(description, condition):
     """Print PASS or FAIL for one check and count it."""
     global passed_count, failed_count
@@ -41,12 +38,12 @@ def check(description, condition):
 
 
 def build_sample_data():
-    """Return a small table with 5 rows and known totals.
+    # Return a small table with 5 rows and known totals.
 
-    East: Ann sold Widget (qty 2, $10 Retail) and Gadget (qty 3, $30 Wholesale)
-    West: Bob sold Widget (qty 1, $20 Retail) and Gizmo (qty 5, $60 Wholesale)
-          Cara sold Gizmo (qty 4, $40 Retail)
-    """
+    # East: Ann sold Widget (qty 2, $10 Retail) and Gadget (qty 3, $30 Wholesale)
+    # West: Bob sold Widget (qty 1, $20 Retail) and Gizmo (qty 5, $60 Wholesale)
+    #       Cara sold Gizmo (qty 4, $40 Retail)
+
     return pd.DataFrame({
         sd.COL_REGION: ["East", "East", "West", "West", "West"],
         sd.COL_STATE: ["HI", "HI", "CA", "CA", "NV"],
@@ -62,8 +59,6 @@ def build_sample_data():
         sd.COL_EMPLOYEE: ["Ann", "Ann", "Bob", "Cara", "Bob"],
     })
 
-
-# --- fake keyboard input ---------------------------------------------------
 fake_answers = []
 
 
@@ -88,7 +83,6 @@ def set_answers(answers):
 sd.input = fake_input
 
 
-# --- capturing printed text ------------------------------------------------
 real_stdout = sys.stdout
 capture_buffer = io.StringIO()
 
@@ -120,13 +114,9 @@ def remove_temp_files():
             os.remove(name)
 
 
-# ---------------------------------------------------------------------------
-# Tests: loading and cleaning
-# ---------------------------------------------------------------------------
 def test_loading_and_cleaning():
     print("\n--- Loading and cleaning ---")
-
-    # A good file
+  
     build_sample_data().to_csv(TEMP_FILE, index=False)
     data, seconds, error = sd.load_sales_data(TEMP_FILE, "test_copy.csv")
     check("good file loads with no error", error == "")
@@ -134,7 +124,6 @@ def test_loading_and_cleaning():
     check("load time is not negative", seconds >= 0)
     check("a local copy was saved", os.path.exists("test_copy.csv"))
 
-    # Bad files
     data, seconds, error = sd.load_sales_data("no_such_file.csv", "x.csv")
     check("missing file gives an error message", error != "")
     check("missing file gives no data", data is None)
@@ -151,7 +140,6 @@ def test_loading_and_cleaning():
     data, seconds, error = sd.load_sales_data(TEMP_FILE, "x.csv")
     check("web page instead of a CSV gives an error message", error != "")
 
-    # Cleaning the data
     messy = build_sample_data()
     messy.loc[0, sd.COL_PRICE] = None
     messy.loc[1, sd.COL_EMPLOYEE] = None
@@ -190,10 +178,6 @@ def test_column_checks():
     check("require_columns False when missing", answer == False)
     check("require_columns names the missing column", "sale_price" in text)
 
-
-# ---------------------------------------------------------------------------
-# Tests: input helpers
-# ---------------------------------------------------------------------------
 def test_input_helpers():
     print("\n--- Input helpers ---")
 
@@ -243,7 +227,6 @@ def test_input_helpers():
     stop_capture()
     check("choose_options allows empty when optional", names == [])
 
-
 def test_output_helpers():
     print("\n--- Output helpers ---")
     table = pd.DataFrame({"x": [1234.5678]})
@@ -258,10 +241,6 @@ def test_output_helpers():
     check("side_by_side has as many lines as the taller table",
           len(lines) == 2 + 1 + 3)
 
-
-# ---------------------------------------------------------------------------
-# Tests: analytics
-# ---------------------------------------------------------------------------
 def test_analytics():
     print("\n--- Analytics ---")
     data = build_sample_data()
@@ -321,7 +300,6 @@ def test_analytics():
     check("unique employees: West = 2",
           result.loc["West", "unique_employees"] == 2)
 
-
 def test_percent_analytic():
     print("\n--- Percent of region analytic ---")
     data = build_sample_data()
@@ -369,10 +347,6 @@ def test_missing_columns_in_analytics():
         check(analytic.__name__ + " returns None and explains why",
               result is None and "Missing" in text)
 
-
-# ---------------------------------------------------------------------------
-# Tests: menu 1 and menu 9
-# ---------------------------------------------------------------------------
 def test_show_first_rows():
     print("\n--- Show first rows ---")
     data = build_sample_data()
@@ -447,10 +421,6 @@ def test_custom_pivot():
     check("custom: not enough fields gives a message",
           result is None and "not have enough fields" in text)
 
-
-# ---------------------------------------------------------------------------
-# Tests: compare and menu
-# ---------------------------------------------------------------------------
 def test_compare():
     print("\n--- Compare side by side ---")
     data = build_sample_data()
@@ -549,10 +519,6 @@ def test_menu():
     check("exit_dashboard says goodbye and returns None",
           result is None and "Goodbye" in text)
 
-
-# ---------------------------------------------------------------------------
-# Tests: main
-# ---------------------------------------------------------------------------
 def test_main():
     print("\n--- main ---")
     real_loader = sd.load_sales_data

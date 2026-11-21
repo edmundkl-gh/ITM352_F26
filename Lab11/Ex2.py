@@ -9,7 +9,9 @@ csv_file = 'https://drive.google.com/uc?id=1ujY0WCcePdotG2xdbLyeECFW9lCJ4t-K&exp
 
 try:
     df = pd.read_csv(csv_file, engine='pyarrow', on_bad_lines='skip')
-    print(df.head())
     df['order_date'] = pd.to_datetime(df['order_date'], errors='coerce')
-except Exception as e:
-    print(f"Error occurred while reading the CSV file: {e}")
+    print(df.head())
+ 
+df['sales']= df['quantity'] * df['unit_price']
+
+                            values = 'sales'

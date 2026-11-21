@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+</head>
+<body>
+    <h1>Quiz Result</h1>
+    <p>Category selected: {{ selected_category }}</p>
+    <p>Your score: {{ score }} out of {{ max_questions }}</p>
+    <p>Correct: {{ score }} | Incorrect: {{ incorrect }} | Time taken: {{ seconds }} seconds</p>
+
+    <h2>By Category</h2>
+    <ul>
+        {% for category, v in by_category.items() %}
+            <li>{{ category }}: {{ v.correct }} / {{ v.total }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if improve %}
+        <p>Areas to improve: {{ improve | join(', ') }}</p>
+    {% else %}
+        <p>No weak areas. Nice work!</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">Take Quiz Again</a>
+</body>
+</html>

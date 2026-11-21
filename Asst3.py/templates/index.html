@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Quiz</title>
+</head>
+<body>
+    <h1>Welcome to the Quiz</h1>
+
+    {% if player %}
+        <h2>Welcome back, {{ player }}!</h2>
+        <h3>Your score history</h3>
+        {% if user_scores %}
+            <ol>
+                {% for s in user_scores | reverse %}
+                    <li>{{ s.category | default('All categories') }}:
+                        {{ s.score }}/{{ s.total }} in {{ s.seconds }}s</li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>You haven't completed a quiz yet.</p>
+        {% endif %}
+    {% else %}
+        <p>First visit? Enter your name to get started.</p>
+    {% endif %}
+
+    {% if error %}
+        <p role="alert" style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('start') }}">
+        {% if not player %}
+            <label for="name">Your name:</label>
+            <input type="text" id="name" name="name" maxlength="30" required>
+        {% endif %}
+        <label for="category">Quiz category:</label>
+        <select id="category" name="category">
+            <option value="All categories"
+                {% if selected_category == "All categories" %}selected{% endif %}>
+                All categories</option>
+            {% for category in categories %}
+                <option value="{{ category }}"
+                    {% if selected_category == category %}selected{% endif %}>
+                    {{ category }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">{% if player %}Play Again{% else %}Start Quiz{% endif %}</button>
+    </form>
+
+    {% if scores %}
+        <h2>Top Scores</h2>
+        <ol>
+            {% for s in scores %}
+                <li>{{ s.name }}: {{ s.score }}/{{ s.total }} in {{ s.seconds }}s</li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+</body>
+</html>
